@@ -1,0 +1,37 @@
+<mat-card [formGroup]="productForm" fxLayout="column"  class="productForm">
+   <h1>Add New Products</h1>
+   <mat-form-field appearance="outline" fxFlex="60">
+     <mat-label>Product Name</mat-label>
+     <input matInput #productName  placeholder="productName" formControlName="productName" type="text">
+     <mat-hint align="end">{{productName.value?.length || 0}}/3</mat-hint>
+     <mat-error *ngIf="productForm.get('productName').errors && productForm.get('productName').errors.required">Product Name Is required</mat-error>
+     <mat-error *ngIf=" productForm.get('productName').errors && productForm.get('productName').errors.minlength">
+       Required length {{productForm.get('productName').errors.minlength.requiredLength}}
+        </mat-error>
+   </mat-form-field>
+   <mat-form-field appearance="outline" fxFlex="60">
+     <mat-label>Product Price</mat-label>
+     <input matInput placeholder="productPrice" formControlName="productPrice" type="number">
+     <mat-error *ngIf="productForm.get('productPrice').errors && productForm.get('productPrice').errors.required">
+        Product Price Is required</mat-error>
+     <mat-error *ngIf=" productForm.get('productPrice').errors && productForm.get('productPrice').errors.min">
+      Product Price  Must be greate than 0
+        </mat-error>
+   </mat-form-field>
+
+   <mat-form-field appearance="outline" fxFlex="60">
+      <mat-label>Product Category</mat-label>
+      <input matInput #productCategory placeholder="productCategory" formControlName="productCategory"type="text">
+      <mat-hint align="end">{{productCategory.value?.length || 0}}/3</mat-hint>
+      <mat-error *ngIf="productForm.get('productCategory').errors && productForm.get('productCategory').errors.required">
+         Product Category Is required</mat-error>
+      <mat-error *ngIf=" productForm.get('productCategory').errors && productForm.get('productCategory').errors.minlength">
+        Required length {{productForm.get('productCategory').errors.minlength.requiredLength}}
+         </mat-error>
+    </mat-form-field>
+  
+   <button mat-raised-button color="primary" 
+   [disabled] = "productForm.invalid"
+   (click)="addNewProduct()">Add</button>
+ </mat-card>
+ 
